@@ -104,6 +104,8 @@ class RESTClientObject(object):
                 **addition_pool_args
             )
 
+        self.api_key = configuration.api_key
+
     def request(self, method, url, query_params=None, headers=None,
                 body=None, post_params=None, _preload_content=True,
                 _request_timeout=None):
@@ -148,6 +150,9 @@ class RESTClientObject(object):
 
         if 'Content-Type' not in headers:
             headers['Content-Type'] = 'application/json'
+
+        if 'apiKey' not in headers:
+            headers['apiKey'] = self.api_key
 
         try:
             # For `POST`, `PUT`, `PATCH`, `OPTIONS`, `DELETE`
